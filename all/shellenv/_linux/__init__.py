@@ -7,7 +7,6 @@ from .._posix import get_shell_env, get_user
 from .getent import get_user_login_shell
 
 
-
 def get_env(shell=None):
     """
     Fetches the environmental variables for the current user. This is necessary

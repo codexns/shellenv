@@ -10,7 +10,7 @@ from ._types import str_cls
 _sys_encoding = locale.getpreferredencoding()
 
 
-def get_env(shell=None):  #pylint: disable=W0613
+def get_env(shell=None):
     """
     Return environment variables for the current user
 

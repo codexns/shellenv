@@ -5,7 +5,7 @@ import sys
 
 
 if sys.version_info < (3,):
-    str_cls = unicode  #pylint: disable=E0602
+    str_cls = unicode  # noqa
     byte_cls = str
 
 else:

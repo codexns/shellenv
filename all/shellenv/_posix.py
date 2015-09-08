@@ -14,7 +14,6 @@ else:
     from ._linux.getent import get_user_login_shell
 
 
-
 _envs = {}
 _environ = {}
 for key in ('HOME', 'LANG', 'USER', 'PATH'):

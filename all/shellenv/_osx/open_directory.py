@@ -99,7 +99,12 @@ def get_user_login_shell(username):
         if bool(error_ref):
             raise OSError('Error!')
 
-        node = OpenDirectory.ODNodeCreateWithName(CoreFoundation.kCFAllocatorDefault, session, unicode_to_cfstring("/Local/Default"), byref(error_ref))
+        node = OpenDirectory.ODNodeCreateWithName(
+            CoreFoundation.kCFAllocatorDefault,
+            session,
+            unicode_to_cfstring("/Local/Default"),
+            byref(error_ref)
+        )
         if bool(error_ref):
             raise OSError('Error!')
 

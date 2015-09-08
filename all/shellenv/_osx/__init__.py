@@ -4,7 +4,6 @@ from __future__ import unicode_literals, division, absolute_import, print_functi
 from .._posix import get_shell_env
 
 
-
 def get_env(shell=None):
     """
     Uses the user's login shell to fetch the environmental variables that are

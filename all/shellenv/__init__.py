@@ -22,6 +22,7 @@ __version_info__ = (1, 0, 0)
 
 _paths = {}
 
+
 def get_path(shell=None):
     """
     Returns the PATH as defined by the shell. If no shell is provided, gets the

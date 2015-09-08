@@ -7,19 +7,18 @@ import sys
 from os import path
 
 if sys.version_info < (3,):
-    str_cls = unicode  #pylint: disable=E0602
+    str_cls = unicode  # noqa
 else:
     str_cls = str
 
-from .unittest_data import data, DataDecorator
+from .unittest_data import data, data_class
 
 import shellenv
 
 
-@DataDecorator
+@data_class
 class ShellenvTests(unittest.TestCase):
 
-    #pylint: disable=C0326
     @staticmethod
     def shells():
         if sys.platform == 'win32':
