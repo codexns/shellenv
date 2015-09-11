@@ -22,7 +22,7 @@ class ShellenvTests(unittest.TestCase):
     @staticmethod
     def shells():
         if sys.platform == 'win32':
-            return ((None))
+            return [(None,)]
 
         output = [(None,)]
 
