@@ -26,6 +26,10 @@ This dependency exposes two methods for package developers to utilize:
  - [0] a unicode string of the path to the user's login shell
  - [1] a dict with unicode string keys and values of the environment variables
 
+*If `for_subprocess=True` is passed to `get_env()`, and the user is running
+Sublime Text 2, the result will be byte strings instead of unicode strings, as
+required by the `subprocess` module.*
+
 `get_path()` returns a list of unicode strings of the directories in the `PATH`.
 
 ## Usage
@@ -56,7 +60,7 @@ The output of `get_env()` may be useful when launching a subprocess:
 import subprocess
 import shellenv
 
-_, env = shellenv.get_env()
+_, env = shellenv.get_env(for_subprocess=True)
 proc = subprocess.Popen(['executable', '-arg'], env=env)
 ```
 

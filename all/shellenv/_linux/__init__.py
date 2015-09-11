@@ -7,7 +7,7 @@ from .._posix import get_shell_env, get_user
 from .getent import get_user_login_shell
 
 
-def get_env(shell=None):
+def get_env(shell=None, for_subprocess=False):
     """
     Fetches the environmental variables for the current user. This is necessary
     since depending on how the sublime_text binary is launched, the process will
@@ -20,6 +20,10 @@ def get_env(shell=None):
     :param shell:
         The shell to get the env from, if None, uses the current user's login
         shell
+
+    :param for_subprocess:
+        If True, and the code is being run in Sublime Text 2, the result will
+        be byte strings instead of unicode strings
 
     :return:
         A 2-element tuple:
@@ -39,9 +43,9 @@ def get_env(shell=None):
         compare = True
 
     if not compare:
-        return get_shell_env(shell)
+        return get_shell_env(shell, for_subprocess=for_subprocess)
 
-    _, login_env = get_shell_env(shell)
+    _, login_env = get_shell_env(shell, for_subprocess=for_subprocess)
     if len(login_env) > len(os.environ):
         return (shell, login_env)
 

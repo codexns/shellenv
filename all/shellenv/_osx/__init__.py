@@ -4,7 +4,7 @@ from __future__ import unicode_literals, division, absolute_import, print_functi
 from .._posix import get_shell_env
 
 
-def get_env(shell=None):
+def get_env(shell=None, for_subprocess=False):
     """
     Uses the user's login shell to fetch the environmental variables that are
     set when a new shell is opened. This is necessary since on OS X, Sublime
@@ -15,10 +15,14 @@ def get_env(shell=None):
         The shell to get the env from, if None, uses the current user's login
         shell
 
+    :param for_subprocess:
+        If True, and the code is being run in Sublime Text 2, the result will
+        be byte strings instead of unicode strings
+
     :return:
         A 2-element tuple:
          - [0] unicode string shell path
          - [1] env dict with keys and values as unicode strings
     """
 
-    return get_shell_env(shell)
+    return get_shell_env(shell, for_subprocess=for_subprocess)

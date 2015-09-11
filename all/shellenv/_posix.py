@@ -21,13 +21,17 @@ for key in ('HOME', 'LANG', 'USER', 'PATH'):
         _environ[key] = os.environ[key]
 
 
-def get_shell_env(shell=None):
+def get_shell_env(shell=None, for_subprocess=False):
     """
     Fetches the environmental variables that are set when a new shell is opened.
 
     :param shell:
         The shell to get the env from, if None, uses the current user's login
         shell
+
+    :param for_subprocess:
+        If True, and the code is being run in Sublime Text 2, the result will
+        be byte strings instead of unicode strings
 
     :return:
         A 2-element tuple:
@@ -65,8 +69,11 @@ def get_shell_env(shell=None):
         entries = stdout.strip().split(b'\n')
         for entry in entries:
             parts = entry.split(b'=', 1)
-            name = parts[0].decode('utf-8', 'replace')
-            value = parts[1].decode('utf-8', 'replace')
+            name = parts[0]
+            value = parts[1]
+            if sys.version_info >= (3,) or not for_subprocess:
+                name = name.decode('utf-8', 'replace')
+                value = value.decode('utf-8', 'replace')
             _envs[shell][name] = value
 
     return (shell, _envs[shell])

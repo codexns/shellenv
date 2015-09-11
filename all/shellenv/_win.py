@@ -17,12 +17,16 @@ kernel32.GetEnvironmentStringsW.argtypes = []
 kernel32.GetEnvironmentStringsW.restype = ctypes.c_void_p
 
 
-def get_env(shell=None):
+def get_env(shell=None, for_subprocess=False):
     """
     Return environment variables for the current user
 
     :param shell:
         The shell to get the env from - unused on Windows
+
+    :param for_subprocess:
+        If True, and the code is being run in Sublime Text 2, the result will
+        be byte strings instead of unicode strings
 
     :return:
         A 2-element tuple:
@@ -31,10 +35,10 @@ def get_env(shell=None):
     """
 
     shell = os.environ['ComSpec']
-    if not isinstance(shell, str_cls):
+    if not isinstance(shell, str_cls) and for_subprocess is False:
         shell = shell.decode(_sys_encoding)
 
-    if sys.version_info < (3,):
+    if sys.version_info < (3,) and for_subprocess is False:
         str_pointer = kernel32.GetEnvironmentStringsW()
         string = ctypes.wstring_at(str_pointer)
 

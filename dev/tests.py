@@ -59,6 +59,18 @@ class ShellenvTests(unittest.TestCase):
             self.assertEqual(str_cls, type(env[key]))
 
     @data('shells')
+    def env_types_subprocess(self, shell):
+        shell, env = shellenv.get_env(shell, for_subprocess=True)
+
+        self.assertEqual(str, type(shell))
+
+        self.assertTrue(len(env) > 0)
+
+        for key in env:
+            self.assertEqual(str, type(key))
+            self.assertEqual(str, type(env[key]))
+
+    @data('shells')
     def path_types(self, shell):
         dirs = shellenv.get_path(shell)
 
