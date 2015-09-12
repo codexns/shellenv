@@ -68,6 +68,8 @@ def get_shell_env(shell=None, for_subprocess=False):
 
         entries = stdout.strip().split(b'\n')
         for entry in entries:
+            if entry == b'':
+                continue
             parts = entry.split(b'=', 1)
             name = parts[0]
             value = parts[1]
