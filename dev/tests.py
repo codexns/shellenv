@@ -50,6 +50,11 @@ class ShellenvTests(unittest.TestCase):
     def env_types(self, shell):
         shell, env = shellenv.get_env(shell)
 
+        # rbash is a really limited shell, so we don't
+        # even bother trying to test it
+        if path.basename(shell) == 'rbash':
+            return
+
         self.assertEqual(str_cls, type(shell))
 
         self.assertTrue(len(env) > 0)
@@ -62,6 +67,11 @@ class ShellenvTests(unittest.TestCase):
     def env_types_subprocess(self, shell):
         shell, env = shellenv.get_env(shell, for_subprocess=True)
 
+        # rbash is a really limited shell, so we don't
+        # even bother trying to test it
+        if path.basename(shell) == 'rbash':
+            return
+
         self.assertEqual(str, type(shell))
 
         self.assertTrue(len(env) > 0)
@@ -73,6 +83,11 @@ class ShellenvTests(unittest.TestCase):
     @data('shells')
     def path_types(self, shell):
         dirs = shellenv.get_path(shell)
+
+        # rbash is a really limited shell, so we don't
+        # even bother trying to test it
+        if shell and path.basename(shell) == 'rbash':
+            return
 
         self.assertTrue(len(dirs) > 0)
 
