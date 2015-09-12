@@ -38,6 +38,7 @@ def get_env(shell=None, for_subprocess=False):
     login_shell = get_user_login_shell(get_user())
 
     if shell is None:
+        shell = login_shell
         compare = True
     elif shell == login_shell:
         compare = True
