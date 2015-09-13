@@ -14,7 +14,7 @@ else:
     from ._linux.getent import get_user_login_shell
 
 
-_envs = {}
+_envs = {'bytes': {}, 'unicode': {}}
 _environ = {}
 for key in ('HOME', 'LANG', 'USER', 'PATH'):
     if key in os.environ:
@@ -46,7 +46,9 @@ def get_shell_env(shell=None, for_subprocess=False):
         shell = get_user_login_shell(get_user())
     _, shell_name = shell.rsplit('/', 1)
 
-    if shell not in _envs:
+    output_type = 'bytes' if sys.version_info < (3,) and for_subprocess else 'unicode'
+
+    if shell not in _envs[output_type]:
         params = ['-i', '-c', '/usr/bin/env']
         if shell_name not in ['tcsh', 'csh']:
             params.insert(0, '-l')
@@ -63,22 +65,24 @@ def get_shell_env(shell=None, for_subprocess=False):
 
         stdout, _ = env_proc.communicate()
 
-        if shell not in _envs:
-            _envs[shell] = {}
+        _envs[output_type][shell] = {}
 
-        entries = stdout.strip().split(b'\n')
+        entries = stdout.strip().split(b'\n(?=\\w+=)')
         for entry in entries:
             if entry == b'':
                 continue
             parts = entry.split(b'=', 1)
             name = parts[0]
             value = parts[1]
-            if sys.version_info >= (3,) or not for_subprocess:
+            if output_type == 'unicode':
                 name = name.decode('utf-8', 'replace')
                 value = value.decode('utf-8', 'replace')
-            _envs[shell][name] = value
+            _envs[output_type][shell][name] = value
 
-    return (shell, _envs[shell])
+    if output_type == 'bytes':
+        shell = shell.encode('utf-8')
+
+    return (shell, _envs[output_type][shell])
 
 
 def get_user():

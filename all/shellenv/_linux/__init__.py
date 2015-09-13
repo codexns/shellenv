@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, division, absolute_import, print_function
 
 import os
+import sys
 
 from .._posix import get_shell_env, get_user
 from .getent import get_user_login_shell
@@ -47,7 +48,18 @@ def get_env(shell=None, for_subprocess=False):
         return get_shell_env(shell, for_subprocess=for_subprocess)
 
     _, login_env = get_shell_env(shell, for_subprocess=for_subprocess)
-    if len(login_env) > len(os.environ):
-        return (shell, login_env)
 
-    return (shell, dict(os.environ))
+    if sys.version_info < (3,) and for_subprocess:
+        shell = shell.encode('utf-8')
+
+    if len(login_env) >= len(os.environ):
+         return (shell, login_env)
+
+    if sys.version_info < (3,) and not for_subprocess:
+        values = {}
+        for key, value in os.environ.items():
+            values[key.decode('utf-8', 'replace')] = value.decode('utf-8', 'replace')
+    else:
+        values = dict(os.environ)
+
+    return (shell, values)
