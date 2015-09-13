@@ -71,6 +71,8 @@ def get_shell_env(shell=None, for_subprocess=False):
             if entry == b'':
                 continue
             parts = entry.split(b'=', 1)
+            if len(parts) < 2:
+                continue
             name = parts[0]
             value = parts[1]
             if output_type == 'unicode':
