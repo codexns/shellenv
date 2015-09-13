@@ -49,21 +49,20 @@ def get_shell_env(shell=None, for_subprocess=False):
     output_type = 'bytes' if sys.version_info < (3,) and for_subprocess else 'unicode'
 
     if shell not in _envs[output_type]:
-        params = ['-i', '-c', '/usr/bin/env']
+        params = ['-i']
         if shell_name not in ['tcsh', 'csh']:
             params.insert(0, '-l')
         params.insert(0, shell)
 
         env_proc = subprocess.Popen(
             params,
-            stdin=None,
+            stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            env=_environ,
-            close_fds=True
+            stderr=subprocess.STDOUT,
+            env=_environ
         )
 
-        stdout, _ = env_proc.communicate()
+        stdout, _ = env_proc.communicate(b'/usr/bin/env')
 
         _envs[output_type][shell] = {}
 
