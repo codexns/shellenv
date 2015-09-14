@@ -28,6 +28,7 @@ def get_env(shell=None, for_subprocess=False):
 
     :return:
         A 2-element tuple:
+
          - [0] unicode string shell path
          - [1] env dict with keys and values as unicode strings
     """

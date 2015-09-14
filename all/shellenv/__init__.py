@@ -33,7 +33,10 @@ def get_path(shell=None):
         the current user's login shell.
 
     :return:
-        A list of unicode strings of the directories that are part of the PATH
+        A 2-element tuple:
+
+         - [0] a unicode string of the shell the path was retrieved from
+         - [1] a list of unicode strings of the directories that are part of the PATH
     """
 
     if shell is not None and not isinstance(shell, str_cls):
