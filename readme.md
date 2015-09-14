@@ -69,4 +69,4 @@ proc = subprocess.Popen(['executable', '-arg'], env=env)
 
 ## Development
 
-Tests can be run by using SubTest.
+Tests can be run by using Package Coverage.
