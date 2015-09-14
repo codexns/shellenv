@@ -87,7 +87,9 @@ class ShellenvTests(unittest.TestCase):
         if shell and path.basename(shell) == 'rbash':
             return
 
-        dirs = shellenv.get_path(shell)
+        shell, dirs = shellenv.get_path(shell)
+
+        self.assertEqual(str_cls, type(shell))
 
         self.assertTrue(len(dirs) > 0)
 

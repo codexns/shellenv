@@ -30,7 +30,10 @@ This dependency exposes two methods for package developers to utilize:
 Sublime Text 2, the result will be byte strings instead of unicode strings, as
 required by the `subprocess` module.*
 
-`get_path()` returns a list of unicode strings of the directories in the `PATH`.
+`get_path()` returns a 2-element tuple of:
+
+ - [0] a unicode string of the path to the user's login shell
+ - [1] a list of unicode strings of the directories in the `PATH`
 
 ## Usage
 

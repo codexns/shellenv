@@ -44,6 +44,6 @@ def get_path(shell=None):
 
     shell_key = shell if shell else 'default'
     if shell_key not in _paths:
-        _, env = get_env(shell)
-        _paths[shell_key] = env.get('PATH', '').split(os.pathsep)
+        shell, env = get_env(shell)
+        _paths[shell_key] = (shell, env.get('PATH', '').split(os.pathsep))
     return _paths[shell_key]
