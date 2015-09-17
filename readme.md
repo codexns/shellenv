@@ -12,7 +12,7 @@ never share's the user's shell environment.
 
 ## Version
 
-1.2.0 - [changelog](changelog.md)
+1.2.1 - [changelog](changelog.md)
 
 ## API
 

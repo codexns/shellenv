@@ -1,5 +1,12 @@
 # changelog
 
+## 1.2.1
+
+ - Fixed environmental variable capitalization on Windows with Sublime Text 2
+   to be all uppercase
+ - Fixed a bug affecting OS X and Linux where environmental variables were not
+   being split properly
+
 ## 1.2.0
 
  - `get_path()` now returns a 2-element tuple with the shell first
