@@ -47,7 +47,7 @@ def get_env(shell=None, for_subprocess=False):
         while string != '':
             if string[0].isalpha():
                 name, value = string.split(u'=', 1)
-                values[name] = value
+                values[name.upper()] = value
             # Include the trailing null byte, and measure each
             # char as 2 bytes since Windows uses UTF-16 for
             # wide chars
