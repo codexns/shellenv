@@ -1,6 +1,7 @@
 # coding: utf-8
 from __future__ import unicode_literals, division, absolute_import, print_function
 
+import re
 import os
 import sys
 import subprocess
@@ -62,7 +63,7 @@ def get_shell_env(shell=None, for_subprocess=False):
 
         _envs[output_type][shell] = {}
 
-        entries = stdout.strip().split(b'\n(?=\\w+=)')
+        entries = re.split(b'\n(?=\\w+=)', stdout.strip())
         for entry in entries:
             if entry == b'':
                 continue
