@@ -4,7 +4,7 @@ from __future__ import unicode_literals, division, absolute_import, print_functi
 import os
 import sys
 
-from .._posix import get_shell_env, get_user
+from .._posix import get_shell_env
 from .getent import get_user_login_shell
 
 
@@ -37,7 +37,7 @@ def get_env(shell=None, for_subprocess=False):
     # to see which seems to contain the correct information
     compare = False
 
-    login_shell = get_user_login_shell(get_user())
+    login_shell = get_user_login_shell()
 
     if shell is None:
         shell = login_shell
