@@ -1,5 +1,9 @@
 # changelog
 
+## 1.3.0
+
+ - Added the functions `get_user_login_shell()` and `get_user()`
+
 ## 1.2.1
 
  - Fixed environmental variable capitalization on Windows with Sublime Text 2
