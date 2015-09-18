@@ -5,7 +5,6 @@ import re
 import os
 import sys
 import subprocess
-from getpass import getuser
 
 from ._types import str_cls, type_name
 
@@ -45,7 +44,7 @@ def get_shell_env(shell=None, for_subprocess=False):
         raise TypeError('shell must be a unicode string, not %s' % type_name(shell))
 
     if shell is None:
-        shell = get_user_login_shell(get_user())
+        shell = get_user_login_shell()
     _, shell_name = shell.rsplit('/', 1)
 
     output_type = 'bytes' if sys.version_info < (3,) and for_subprocess else 'unicode'
@@ -81,17 +80,3 @@ def get_shell_env(shell=None, for_subprocess=False):
         shell = shell.encode('utf-8')
 
     return (shell, _envs[output_type][shell])
-
-
-def get_user():
-    """
-    Returns the current username as a unicode string
-
-    :return:
-        A unicode string of the current user's username
-    """
-
-    output = getuser()
-    if not isinstance(output, str_cls):
-        output = output.decode('utf-8')
-    return output

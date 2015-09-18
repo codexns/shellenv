@@ -54,7 +54,7 @@ def get_env(shell=None, for_subprocess=False):
         shell = shell.encode('utf-8')
 
     if len(login_env) >= len(os.environ):
-         return (shell, login_env)
+        return (shell, login_env)
 
     if sys.version_info < (3,) and not for_subprocess:
         values = {}

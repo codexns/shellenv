@@ -16,10 +16,12 @@ never share's the user's shell environment.
 
 ## API
 
-This dependency exposes two methods for package developers to utilize:
+This dependency exposes four functions for package developers to utilize:
 
  - `shellenv.get_env()`
  - `shellenv.get_path()`
+ - `shellenv.get_user()`
+ - `shellenv.get_user_login_shell()`
 
 `get_env()` returns a 2-element tuple of:
 
@@ -34,6 +36,11 @@ required by the `subprocess` module.*
 
  - [0] a unicode string of the path to the user's login shell
  - [1] a list of unicode strings of the directories in the `PATH`
+
+`get_user()` returns a unicode string of the current user's username.
+
+`get_user_login_shell()` returns a unicode string of the current user's login
+shell.
 
 ## Usage
 
@@ -69,4 +76,5 @@ proc = subprocess.Popen(['executable', '-arg'], env=env)
 
 ## Development
 
-Tests can be run by using Package Coverage.
+Tests can be run using
+[Package Coverage](https://packagecontrol.io/packages/Package%20Coverage).

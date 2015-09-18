@@ -119,3 +119,13 @@ class ShellenvTests(unittest.TestCase):
 
         for dir_ in dirs:
             self.assertEqual(str_cls, type(dir_))
+
+    def test_get_login_shell(self):
+
+        username = shellenv.get_user()
+        shell = shellenv.get_user_login_shell(username)
+
+        self.assertEqual(str_cls, type(username))
+        self.assertTrue(len(username) > 0)
+        self.assertEqual(str_cls, type(shell))
+        self.assertTrue(len(shell) > 0)

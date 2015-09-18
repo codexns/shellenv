@@ -57,3 +57,21 @@ def get_env(shell=None, for_subprocess=False):
         values = dict(os.environ)
 
     return (shell, values)
+
+
+def get_user_login_shell(username=None):
+    """
+    Return the path to cmd.exe. Exists for API compatiblity with OS X/Linux.
+
+    :param username:
+        A unicode string of the user to get the shell for - None for the
+        current user
+
+    :return:
+        A unicode string of the user's login shell
+    """
+
+    shell = os.environ['ComSpec']
+    if not isinstance(shell, str_cls):
+        shell = shell.decode(_sys_encoding)
+    return shell
