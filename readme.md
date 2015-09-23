@@ -22,6 +22,10 @@ This dependency exposes four functions for package developers to utilize:
  - `shellenv.get_path()`
  - `shellenv.get_user()`
  - `shellenv.get_user_login_shell()`
+ - `shellenv.env_encode()`
+ - `shellenv.env_decode()`
+ - `shellenv.path_encode()`
+ - `shellenv.path_decode()`
 
 `get_env()` returns a 2-element tuple of:
 
@@ -41,6 +45,16 @@ required by the `subprocess` module.*
 
 `get_user_login_shell()` returns a unicode string of the current user's login
 shell.
+
+`env_encode()`, `env_decode()`, `path_encode()` and `path_decode()` are all
+functions that accept a single string and return a single string. They exist
+as helpers to deal with information being used with the `subprocess` module,
+which requires byte strings on Python 2/Sublime Text 2.
+
+Passing a unicode string to `env_encode()` or `path_encode()` will ensure the
+resulting string is properly encoded to use with the `subprocess` module.
+`env_decode()` and `path_decode()` will properly decode a value from a call to
+`get_env(for_subprocess=True)` and return a unicode string.
 
 ## Usage
 
@@ -62,7 +76,7 @@ Sublime Text (nested `*`), require the `shellenv` dependency. You can also read
 the
 [official documentation about dependencies](https://packagecontrol.io/docs/dependencies).
 
-## Example
+## Examples
 
 The output of `get_env()` may be useful when launching a subprocess:
 
@@ -72,6 +86,18 @@ import shellenv
 
 _, env = shellenv.get_env(for_subprocess=True)
 proc = subprocess.Popen(['executable', '-arg'], env=env)
+```
+
+If it is necessary to display debug information related to a subprocess,
+`env_decode()` and `path_decode()` will ensure information is a unicode string:
+
+```python
+import shellenv
+
+shell, env = shellenv.get_env(for_subprocess=True)
+
+display_debug(path_decode(shell))
+display_debug(env_decode(env['PATH']))
 ```
 
 ## Development

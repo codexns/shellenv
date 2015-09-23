@@ -121,7 +121,6 @@ class ShellenvTests(unittest.TestCase):
             self.assertEqual(str_cls, type(dir_))
 
     def test_get_login_shell(self):
-
         username = shellenv.get_user()
         shell = shellenv.get_user_login_shell(username)
 
@@ -131,9 +130,38 @@ class ShellenvTests(unittest.TestCase):
         self.assertTrue(len(shell) > 0)
 
     def test_get_env_ensure_copy(self):
-
         shell, env = shellenv.get_env()
         env['FOOBAR'] = 'test'
         shell2, env2 = shellenv.get_env()
 
         self.assertEqual(None, env2.get('FOOBAR'))
+
+    def test_env_encode(self):
+        value = shellenv.env_encode('env value')
+        if sys.version_info < (3,):
+            self.assertEqual(b'env value', value)
+        else:
+            self.assertEqual('env value', value)
+
+    def test_env_decode(self):
+        if sys.version_info < (3,):
+            source = b'env value'
+        else:
+            source = 'env value'
+        value = shellenv.env_decode(source)
+        self.assertEqual('env value', value)
+
+    def test_path_encode(self):
+        value = shellenv.path_encode(os.path.expanduser('~'))
+        if sys.version_info < (3,):
+            self.assertEqual(os.path.expanduser(b'~'), value)
+        else:
+            self.assertEqual(os.path.expanduser('~'), value)
+
+    def test_path_decode(self):
+        if sys.version_info < (3,):
+            source = os.path.expanduser(b'~')
+        else:
+            source = os.path.expanduser('~')
+        value = shellenv.path_decode(source)
+        self.assertEqual(os.path.expanduser('~'), value)

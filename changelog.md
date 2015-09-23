@@ -1,5 +1,9 @@
 # changelog
 
+## 1.4.0
+
+ - Added env_encode(), env_decode(), path_encode() and path_decode() functions
+
 ## 1.3.1
 
  - Fixed a bug on OS X and Linux where changes to the return env dict would be

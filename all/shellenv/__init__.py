@@ -6,6 +6,7 @@ import os
 from getpass import getuser
 
 from ._types import str_cls, type_name
+from ._encoding import env_encode, env_decode, path_encode, path_decode  # noqa
 
 if sys.platform == 'win32':
     from ._win import get_env, get_user_login_shell
