@@ -79,4 +79,4 @@ def get_shell_env(shell=None, for_subprocess=False):
     if output_type == 'bytes':
         shell = shell.encode('utf-8')
 
-    return (shell, _envs[output_type][shell])
+    return (shell, _envs[output_type][shell].copy())

@@ -129,3 +129,11 @@ class ShellenvTests(unittest.TestCase):
         self.assertTrue(len(username) > 0)
         self.assertEqual(str_cls, type(shell))
         self.assertTrue(len(shell) > 0)
+
+    def test_get_env_ensure_copy(self):
+
+        shell, env = shellenv.get_env()
+        env['FOOBAR'] = 'test'
+        shell2, env2 = shellenv.get_env()
+
+        self.assertEqual(None, env2.get('FOOBAR'))
