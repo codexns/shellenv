@@ -19,8 +19,8 @@ else:
     from ._linux.getent import get_user_login_shell  # noqa
 
 
-__version__ = '1.3.0'
-__version_info__ = (1, 3, 0)
+__version__ = '1.3.1'
+__version_info__ = (1, 3, 1)
 
 
 _paths = {}

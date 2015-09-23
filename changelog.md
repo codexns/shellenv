@@ -1,5 +1,10 @@
 # changelog
 
+## 1.3.1
+
+ - Fixed a bug on OS X and Linux where changes to the return env dict would be
+   persisted upon subsequent calls
+
 ## 1.3.0
 
  - Added the functions `get_user_login_shell()` and `get_user()`
