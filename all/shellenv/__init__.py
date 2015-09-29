@@ -20,8 +20,8 @@ else:
     from ._linux.getent import get_user_login_shell  # noqa
 
 
-__version__ = '1.4.0'
-__version_info__ = (1, 4, 0)
+__version__ = '1.4.1'
+__version_info__ = (1, 4, 1)
 
 
 _paths = {}

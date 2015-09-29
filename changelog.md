@@ -1,5 +1,9 @@
 # changelog
 
+## 1.4.1
+
+ - Improved handling of built in types names in TypeError exceptions on ST2
+
 ## 1.4.0
 
  - Added env_encode(), env_decode(), path_encode() and path_decode() functions
