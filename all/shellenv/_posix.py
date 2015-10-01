@@ -15,10 +15,6 @@ else:
 
 
 _envs = {'bytes': {}, 'unicode': {}}
-_environ = {}
-for key in ('HOME', 'LANG', 'USER', 'PATH'):
-    if key in os.environ:
-        _environ[key] = os.environ[key]
 
 
 def get_shell_env(shell=None, for_subprocess=False):
@@ -50,12 +46,16 @@ def get_shell_env(shell=None, for_subprocess=False):
     output_type = 'bytes' if sys.version_info < (3,) and for_subprocess else 'unicode'
 
     if shell not in _envs[output_type]:
+        args = [shell, '-l']
+        # For bash we invoke interactively or else ~/.bashrc is not
+        # loaded, and many distros and users use .bashrc for env vars
+        if shell_name == 'bash':
+            args.append('-i')
         env_proc = subprocess.Popen(
-            [shell, '-l'],
+            args,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            env=_environ
+            stderr=subprocess.STDOUT
         )
 
         stdout, _ = env_proc.communicate(b'/usr/bin/env\n')
