@@ -1,5 +1,10 @@
 # changelog
 
+## 1.4.2
+
+ - Launch bash in interactive mode so that `~/.bashrc` is parsed
+ - Improved tests to ignore `screen` in addition to `rbash`
+
 ## 1.4.1
 
  - Improved handling of built in types names in TypeError exceptions on ST2
