@@ -16,6 +16,7 @@ else:
 from .unittest_data import data, data_class
 
 import shellenv
+import os
 
 
 @data_class
@@ -39,7 +40,15 @@ class ShellenvTests(unittest.TestCase):
                 if line[0] == '#':
                     continue
 
+                if not os.path.exists(line):
+                    continue
+
                 name = path.basename(line)
+                # rbash is a really limited shell, so we don't
+                # even bother trying to test it and screen isn't
+                # really a shell
+                if name in set(['rbash', 'screen']):
+                    continue
                 shell_map[name] = line
 
         for name in shell_map:
@@ -50,11 +59,6 @@ class ShellenvTests(unittest.TestCase):
 
     @data('shells')
     def get_env(self, shell):
-        # rbash is a really limited shell, so we don't
-        # even bother trying to test it
-        if shell and path.basename(shell) == 'rbash':
-            return
-
         shell, env = shellenv.get_env(shell)
 
         self.assertEqual(str_cls, type(shell))
@@ -89,11 +93,6 @@ class ShellenvTests(unittest.TestCase):
 
     @data('shells')
     def get_env_for_subprocess(self, shell):
-        # rbash is a really limited shell, so we don't
-        # even bother trying to test it
-        if shell and path.basename(shell) == 'rbash':
-            return
-
         shell, env = shellenv.get_env(shell, for_subprocess=True)
 
         self.assertEqual(str, type(shell))
@@ -106,11 +105,6 @@ class ShellenvTests(unittest.TestCase):
 
     @data('shells')
     def path_types(self, shell):
-        # rbash is a really limited shell, so we don't
-        # even bother trying to test it
-        if shell and path.basename(shell) == 'rbash':
-            return
-
         shell, dirs = shellenv.get_path(shell)
 
         self.assertEqual(str_cls, type(shell))
